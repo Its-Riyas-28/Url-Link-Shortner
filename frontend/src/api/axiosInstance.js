@@ -1,9 +1,12 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://url-link-shortner-backend.onrender.com/api/v1", // Backend URL
-  withCredentials: true, // Allow cookies
+  baseURL: "https://url-link-shortner-backend.onrender.com/api/v1", // Replace with your actual backend Render URL
+  withCredentials: true, // Ensure cookies are sent
 });
 
-// https://url-link-shortner-backend.onrender.com
 export default instance;
+
+
+// https://url-link-shortner-backend.onrender.com
+

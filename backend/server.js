@@ -9,7 +9,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors({ origin: ["http://localhost:4173","https://url-link-shortner-frontend.onrender.com"], credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:4173", // Local testing
+      "https://url-link-shortner-frontend.onrender.com", // Frontend Render URL
+    ],
+    credentials: true, // Allow credentials
+  })
+);
 app.use(express.json());
 app.use("/api/v1", userRoutes);
 
