@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api/v1", // Backend URL
+  baseURL: "https://url-link-shortner-backend.onrender.com/api/v1", // Backend URL
   withCredentials: true, // Allow cookies
 });
 
+// https://url-link-shortner-backend.onrender.com
 export default instance;
