@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-// https://vitejs.dev/config/
+
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -9,5 +9,8 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist', // Ensure that build output goes into the 'dist' folder
+  },
+  preview: {
+    allowedHosts: ['url-link-shortner-frontend.onrender.com'], // Allow the Render.com host
   },
 });
