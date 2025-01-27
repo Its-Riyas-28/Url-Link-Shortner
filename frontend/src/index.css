@@ -19,12 +19,6 @@ form {
   width: 300px;
 }
 
-input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
 button {
   padding: 10px;
   background:hsla(226, 78%, 48%, 1);
@@ -35,5 +29,5 @@ button {
 }
 
 button:hover {
- opacity: 0.1;
+ opacity: 0.75;
 }

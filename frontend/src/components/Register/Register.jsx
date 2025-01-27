@@ -4,7 +4,7 @@ import axios from "../../api/axiosInstance"; // Adjusted import
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Register.css";
-import registrationImage from "../../assets/m_image.png";
+
 
 const Register = () => {
   const {
@@ -35,7 +35,7 @@ const Register = () => {
     <div className="register-page">
       {/* Image Section */}
       <div className="register-image">
-        <img src={registrationImage} alt="Registration" />
+        <img src={"https://res.cloudinary.com/dikzsipnp/image/upload/v1737923237/llc9q5natreqjv8psrq4.png"} alt="Registration" />
       </div>
 
       {/* Form Section */}

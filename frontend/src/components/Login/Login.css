@@ -1,247 +1,258 @@
 :root {
-    --clr-primary-500:hsl(50 ,74%, 56%);
-    --clr-secondary-500:hsl(210,100%, 38%);
-    --clr-tertiary-500:hsl(0, 0%, 26.7%);
-  
-    --clr-netural-500:hsl(40, 60%, 90%);
-    --clr-sc-netural-500: hsl(45, 20%, 2%);
-  
-    --ff-primary: "Roboto", serif;
-    --ff-secondary: "DM Sans", serif;
-  
-    --ff-body: var(--ff-secondary);
-    --ff-heading: var(--ff-primary);
-  
-    --fw-regular: 400;
-    --fw-bold: 900;
-  
-    --fs-300: 0.875rem;
-    --fs-500: 1rem;
-    --fs-550: 1.25rem;
-    --fs-600: 1.5rem;
-    --fs-700: 2.1875rem;
-  
-    --fs-body: var(--fs-500);
-    --fs-nav: var(--fs-600);
-    --fs-button: var(--fs-300);
-    --fs-heading: var(--fs-700);
-  
-    --size-100: 0.25rem;
-    --size-200: 0.5rem;
-    --size-300: 0.75rem;
-    --size-400: 1rem;
-    --size-500: 1.5rem;
-    --size-600: 2rem;
-    --size-700: 3rem;
-    --size-800: 4rem;
-    --size-900: 5rem;
+  --clr-primary-500:hsla(226, 78%, 48%, 1);
+  --clr-secondary-500:hsla(237, 16%, 27%, 1);
+
+  --clr-netural-500:hsla(0, 0%, 100%, 1);
+  --clr-sc-netural-500:hsla(0, 0%, 70%, 1);
+
+  --ff-primary: 'Manrope', sans-serif;
+  --ff-secondary: "DM Sans", serif;
+
+  --ff-body: var(--ff-secondary);
+  --ff-heading: var(--ff-primary);
+
+  --fw-regular: 400;
+  --fw-bold: 900;
+
+  --fs-300: 0.875rem;
+  --fs-500: 1rem;
+  --fs-550: 1.25rem;
+  --fs-600: 1.5rem;
+  --fs-700: 2.1875rem;
+
+  --fs-body: var(--fs-500);
+  --fs-nav: var(--fs-600);
+  --fs-button: var(--fs-300);
+  --fs-heading: var(--fs-700);
+
+  --size-100: 0.25rem;
+  --size-200: 0.5rem;
+  --size-300: 0.75rem;
+  --size-400: 1rem;
+  --size-500: 1.5rem;
+  --size-600: 2rem;
+  --size-700: 3rem;
+  --size-800: 4rem;
+  --size-900: 5rem;
+}
+
+@media (min-width: 50em) {
+  :root {
+    --fs-500: 1.5rem;
+    --fs-600: 1.8rem;
+    --fs-700: 2.5rem;
   }
-  
-  @media (min-width: 50em) {
-    :root {
-      --fs-500: 1.5rem;
-      --fs-600: 1.8rem;
-      --fs-700: 2.5rem;
-    }
-  }
-  
-  /* 1. Use a more-intuitive box-sizing model */
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-  
-  /* 2. Remove default margin */
-  * {
-    margin: 0;
-    padding: 0;
-    font: inherit;
-  }
-  
-  html,
-  body {
-    height: 100%;
-  }
-  
-  body {
-    /* 3. Add accessible line-height */
-    line-height: 1.5;
-    /* 4. Improve text rendering */
-    -webkit-font-smoothing: antialiased;
-  
-    font-family: var(--ff-primary);
-  }
-  
-  /* 5. Improve media defaults */
-  img,
-  picture,
-  video,
-  canvas,
-  svg {
-    display: block;
-    max-width: 100%;
-  }
-  
-  /* 7. Avoid text overflows */
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    overflow-wrap: break-word;
-  }
-  
-  /* 8. Improve line wrapping */
-  p {
-    text-wrap: pretty;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    text-wrap: balance;
-    font-weight:var(--fw-bold);
-  }
-  
-  /*
-      9. Create a root stacking context
-    */
-  #root,
-  #__next {
-    isolation: isolate;
-  }
-  
-  .container {
-    --max-width: 1110px;
-    --padding: 1rem;
-  
-    width: min(var(--max-width), 100% - (var(--padding) * 2));
-    margin-inline: auto;
-  }
-  
-  .row{
-    display: block;
-  }
-  
-  .visually-hidden {
-    position: absolute;
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
-  }
-  
+}
+
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  /* 3. Add accessible line-height */
+  line-height: 1.5;
+  /* 4. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+
+  font-family: var(--ff-primary);
+}
+
+/* 5. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+  font-weight:var(--fw-bold);
+}
+
+/*
+    9. Create a root stacking context
+  */
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.container {
+  --max-width: 1110px;
+  --padding: 1rem;
+
+  width: min(var(--max-width), 100% - (var(--padding) * 2));
+  margin-inline: auto;
+}
+
+.row{
+  display: block;
+}
+
+.visually-hidden {
+  position: absolute;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 /* General Css */
 /* Page Layout */
 .login-page {
-  display: flex;
-  height: 100vh;
-  background-color: #f3f4f6;
+display: flex;
+height: 100vh;
+background-color: var(--clr-netural-500);
 }
 
 /* Image Section */
 .login-image {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f7fafc;
+flex: 1;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .login-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+width: 100%;
+height: 100%;
+object-fit: cover;
 }
 
 /* Form Section */
 .login-form-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  background: #fff;
+flex: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 2rem;
 }
 
 /* Form Styling */
 .login-form {
-  max-width: 400px;
-  width: 100%;
-  padding: 20px;
-  background-color: #fff;
+max-width: 500px;
+width: 100%;
 }
 
 .form-group {
-  margin-bottom: 20px;
+margin-bottom: 20px;
 }
 
 input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+width: 100%;
+padding: 0.6rem;
+border: .1rem solid var(--clr-secondary-500);
+border-radius: 0.3rem;
+font-family: var(--ff-primary);
+font-size: 1rem;
 }
 
 input:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+border-color: var(--clr-primary-500);
+outline: none;
+box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+input::placeholder{
+  color:var(--clr-sc-netural-500);
+  font-family: var(--ff-primary);
+  font-size: 1rem;
 }
 
 .error-input {
-  border-color: red;
-  background-color: #ffe6e6;
+border-color: red;
+background-color: #ffe6e6;
 }
 
 .error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
+color: red;
+font-size: 12px;
+margin-top: 5px;
 }
 
 .submit-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+width: 100%;
+padding: 0.6rem;
+font-family: var(--ff-primary);
+background-color:var(--clr-primary-500);
+color: var(--clr-netural-500);
+border: none;
+border-radius: 0.3rem;
+font-size: 1.15rem;
+cursor: pointer;
+transition: background-color 0.3s ease;
 }
 
 .submit-button:hover:not([disabled]) {
-  background-color: #0056b3;
+background-color: #0056b3;
 }
 
 .submit-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+background-color:var(--clr-netural-500);
+cursor: not-allowed;
 }
 
 .redirect-link {
-  text-align: center;
-  margin-top: 20px;
+text-align: center;
+margin-top: 20px;
+font-family: var(--ff-primary);
+font-size: 1.15rem;
 }
 
 .redirect-link a {
-  color: #007bff;
-  text-decoration: none;
+color: var(--clr-primary-500);
+text-decoration: none;
 }
 
 .redirect-link a:hover {
-  text-decoration: underline;
+text-decoration: underline;
+}
+
+@media screen and (max-width:768px){
+  .login-image{
+    display:none;
+  }
 }

@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../../api/axiosInstance"; // Adjusted import
 import { toast } from "react-toastify";
+import "@fontsource/manrope"; // Defaults to weight 400
+import "@fontsource/manrope/400.css"; // Specify weight 
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
-import loginImage from "../../assets/m_image.png"; // Adjust the path to your image
 
 const Login = () => {
   const {
@@ -30,7 +31,7 @@ const Login = () => {
     <div className="login-page">
       {/* Image Section */}
       <div className="login-image">
-        <img src={loginImage} alt="Login" />
+        <img src={"https://res.cloudinary.com/dikzsipnp/image/upload/v1737923237/llc9q5natreqjv8psrq4.png"} alt="Login" />
       </div>
 
       {/* Form Section */}
@@ -63,7 +64,7 @@ const Login = () => {
           </button>
 
           <p className="redirect-link">
-          Don&apos;t have an account? <Link to="/register">Register</Link>
+          Don&apos;t have an account? <Link to="/register">SignUp</Link>
           </p>
         </form>
       </div>
