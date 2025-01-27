@@ -32,6 +32,8 @@
 .menu-item {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color:hsla(237, 16%, 27%, 1);
   gap: 10px;
   font-size: 18px;
   padding: 10px;
@@ -41,18 +43,25 @@
 }
 
 .menu-item:hover {
-  background-color: #2563eb;
+  background-color: hsl(222, 71%, 97%); /* Light background on hover */
+  color: hsla(226, 78%, 48%, 1); /* Blue text and icon on hover */
 }
 
 /* Active Item */
 .menu-item.active {
-  background-color: #2563eb;
+  background-color: hsl(224, 92%, 90%); /* Active background color */
+  color: hsla(226, 78%, 48%, 1); /* Active text and icon color */
 }
 
-/* Icons */
 .icon {
   font-size: 20px;
 }
+
+.icon.active{
+ color: hsla(226, 78%, 48%, 1);
+}
+
+/* Icons */
 
 .menu-text {
   font-size: 16px;

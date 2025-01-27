@@ -17,7 +17,7 @@ const Navbar = () => {
       {/* Center: Greeting */}
       <div className="space">
         <div className="navbar-greeting">
-          <h3 className="greeting-text">Good morning, Sujith</h3>
+          <h3 className="greeting-text">🌞 Good morning, Sujith</h3>
           <p className="greeting-date">Tue, Jan 25</p>
         </div>
 
