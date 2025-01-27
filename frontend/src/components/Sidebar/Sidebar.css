@@ -49,8 +49,8 @@
 
 /* Active Item */
 .menu-item.active {
-  background-color: hsl(224, 92%, 90%); /* Active background color */
-  color: hsla(226, 78%, 48%, 1); /* Active text and icon color */
+  background-color: hsl(224, 92%, 90%); 
+  color: hsla(226, 78%, 48%, 1); 
 }
 
 .icon {
@@ -60,8 +60,6 @@
 .icon.active{
  color: hsla(226, 78%, 48%, 1);
 }
-
-/* Icons */
 
 .menu-text {
   font-size: 16px;

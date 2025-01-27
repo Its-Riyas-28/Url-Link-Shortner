@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../../api/axiosInstance"; // Adjusted import
+import axios from "../../api/axiosInstance";
 import { toast } from "react-toastify";
-import "@fontsource/manrope"; // Defaults to weight 400
-import "@fontsource/manrope/400.css"; // Specify weight 
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
@@ -19,9 +17,11 @@ const Login = () => {
     const { email, password } = data;
 
     try {
-      await axios.post("/login", { email, password });
+      const response = await axios.post("/login", { email, password });
+      const { name } = response.data.user; // Extract the name from the response
+      localStorage.setItem("userName", name); // Store the name in localStorage
       toast.success("Logged in successfully!");
-      navigate("/dashboard"); // Redirect to dashboard after successful login
+      navigate("/dashboard"); // Redirect to the dashboard
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed!");
     }
@@ -29,14 +29,20 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      {/* Image Section */}
       <div className="login-image">
-        <img src={"https://res.cloudinary.com/dikzsipnp/image/upload/v1737923237/llc9q5natreqjv8psrq4.png"} alt="Login" />
+        <img
+          src={
+            "https://res.cloudinary.com/dikzsipnp/image/upload/v1737923237/llc9q5natreqjv8psrq4.png"
+          }
+          alt="Login"
+        />
       </div>
-
-      {/* Form Section */}
       <div className="login-form-container">
-        <form onSubmit={handleSubmit(loginHandler)} className="login-form" noValidate>
+        <form
+          onSubmit={handleSubmit(loginHandler)}
+          className="login-form"
+          noValidate
+        >
           <div className="form-group">
             <input
               type="email"
@@ -45,9 +51,10 @@ const Login = () => {
               className={errors.email ? "error-input" : ""}
               aria-invalid={errors.email ? "true" : "false"}
             />
-            {errors.email && <p className="error-message">{errors.email.message}</p>}
+            {errors.email && (
+              <p className="error-message">{errors.email.message}</p>
+            )}
           </div>
-
           <div className="form-group">
             <input
               type="password"
@@ -56,15 +63,19 @@ const Login = () => {
               className={errors.password ? "error-input" : ""}
               aria-invalid={errors.password ? "true" : "false"}
             />
-            {errors.password && <p className="error-message">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="error-message">{errors.password.message}</p>
+            )}
           </div>
-
-          <button type="submit" className="submit-button" disabled={isSubmitting}>
+          <button
+            type="submit"
+            className="submit-button"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
-
           <p className="redirect-link">
-          Don&apos;t have an account? <Link to="/register">SignUp</Link>
+            Don&apos;t have an account? <Link to="/register">SignUp</Link>
           </p>
         </form>
       </div>

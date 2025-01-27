@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../../api/axiosInstance"; // Adjusted import
+import axios from "../../api/axiosInstance"; 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Register.css";

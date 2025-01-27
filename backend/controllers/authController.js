@@ -17,7 +17,9 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
 
   const existingMobile = await User.findOne({ mobile });
   if (existingMobile) {
-    return next(new ErrorHandler("User already exists with this mobile number", 400));
+    return next(
+      new ErrorHandler("User already exists with this mobile number", 400)
+    );
   }
 
   const user = await User.create({ name, email, mobile, password });
