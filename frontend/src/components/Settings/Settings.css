@@ -1,0 +1,75 @@
+/* General container styling */
+.settings-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  /* Title styling */
+  .settings-container h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  
+  /* Form container */
+  .form-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* Label styling */
+  .form-container label {
+    display: block;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  /* Input fields */
+  .form-container input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+  
+  /* Save button */
+  .save-btn {
+    width: 100%;
+    background-color: #2563eb;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+  
+  .save-btn:hover {
+    background-color: #1d4ed8;
+  }
+  
+  /* Delete button */
+  .button2 {
+    width: 100%;
+    background-color: #dc2626;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .button2:hover {
+    background-color: #b91c1c;
+  }

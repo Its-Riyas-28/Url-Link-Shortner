@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { FiPlus } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 
-const Navbar = () => {
+function Navbar({ openModal }) {
   const [userName, setUserName] = useState("");
   const [avatarInitials, setAvatarInitials] = useState("");
 
@@ -58,9 +58,9 @@ const Navbar = () => {
 
         {/* Right: Button, Search Bar, Avatar */}
         <div className="navbar-actions">
-          <button className="create-button">
-            <FiPlus /> Create new
-          </button>
+        <button className="create-button" onClick={openModal}>
+  <FiPlus /> Create new
+</button>
           <div className="search-bar-container">
             <AiOutlineSearch className="search-icon" />
             <input
@@ -78,4 +78,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar;  

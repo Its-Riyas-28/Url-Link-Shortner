@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Navbar from "./components/Navbar/Navbar";
-import Links from "./components/Links/Links"; // New Links component
-import Analytics from "./components/Analytics/Analytics"; // New Analytics component
-import Settings from "./components/Settings/Settings"; // New Settings component
+import Links from "./components/Links/Links";
+import Analytics from "./components/Analytics/Analytics";
+import Settings from "./components/Settings/Settings";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NewLinkModal from "./components/NewLinkModal/NewLinkModal"; // Import modal
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <>
       <ToastContainer />
@@ -27,7 +33,7 @@ function App() {
             path="/dashboard"
             element={
               <>
-                <Navbar />
+                <Navbar openModal={openModal} /> {/* Pass modal control */}
                 <div style={{ display: "flex" }}>
                   <Sidebar />
                   <div style={{ flex: 1, padding: "20px" }}>
@@ -41,7 +47,7 @@ function App() {
             path="/links"
             element={
               <>
-                <Navbar />
+                <Navbar openModal={openModal} />
                 <div style={{ display: "flex" }}>
                   <Sidebar />
                   <div style={{ flex: 1, padding: "20px" }}>
@@ -55,7 +61,7 @@ function App() {
             path="/analytics"
             element={
               <>
-                <Navbar />
+                <Navbar openModal={openModal} />
                 <div style={{ display: "flex" }}>
                   <Sidebar />
                   <div style={{ flex: 1, padding: "20px" }}>
@@ -69,7 +75,7 @@ function App() {
             path="/settings"
             element={
               <>
-                <Navbar />
+                <Navbar openModal={openModal} />
                 <div style={{ display: "flex" }}>
                   <Sidebar />
                   <div style={{ flex: 1, padding: "20px" }}>
@@ -81,6 +87,9 @@ function App() {
           />
         </Routes>
       </Router>
+
+      {/* Render Modal */}
+      {isModalOpen && <NewLinkModal onClose={closeModal} />}
     </>
   );
 }
