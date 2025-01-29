@@ -36,8 +36,15 @@ function App() {
   }, []);
 
   const onLinkCreated = (newLink) => {
-    setLinks(prevLinks => (Array.isArray(prevLinks) ? [...prevLinks, newLink] : [newLink]));
+    setLinks(prevLinks => {
+      if (Array.isArray(prevLinks)) {
+        return [newLink, ...prevLinks]; // Add new link at the top
+      } else {
+        return [newLink]; // Ensure it's an array
+      }
+    });
   };
+  
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -109,6 +116,7 @@ function App() {
         </Routes>
       </Router>
 
+      <button onClick={openModal}>Create New Link</button>
       {isModalOpen && <NewLinkModal onClose={closeModal} onLinkCreated={onLinkCreated} />}
     </>
   );
