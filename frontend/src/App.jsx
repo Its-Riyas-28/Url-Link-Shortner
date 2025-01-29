@@ -14,13 +14,13 @@ import NewLinkModal from "./components/NewLinkModal/NewLinkModal";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [links, setLinks] = useState([]); // Store links (from DB & new ones)
+  const [links, setLinks] = useState([]); 
 
-  // Fetch existing links from the database
+
   useEffect(() => {
     const fetchLinks = async () => {
       try {
-        const response = await fetch("/api/links"); // Adjust API endpoint
+        const response = await fetch("/api/links");
         const data = await response.json();
         setLinks(data);
       } catch (error) {
@@ -31,9 +31,8 @@ function App() {
     fetchLinks();
   }, []);
 
-  // Handle new link creation
   const onLinkCreated = (newLink) => {
-    setLinks((prevLinks) => [newLink, ...prevLinks]); // Add new link to state
+    setLinks((prevLinks) => [newLink, ...prevLinks]); 
   };
 
   const openModal = () => setIsModalOpen(true);
@@ -70,7 +69,7 @@ function App() {
                 <div style={{ display: "flex" }}>
                   <Sidebar />
                   <div style={{ flex: 1, padding: "20px" }}>
-                    <Links links={links} /> {/* Pass links to component */}
+                    <Links links={links} /> 
                   </div>
                 </div>
               </>
@@ -107,7 +106,6 @@ function App() {
         </Routes>
       </Router>
 
-      {/* Render Modal */}
       {isModalOpen && <NewLinkModal onClose={closeModal} onLinkCreated={onLinkCreated} />}
     </>
   );

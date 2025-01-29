@@ -1,11 +1,11 @@
 :root {
-    --primary-color: #007bff; /* Bright blue for actions */
-    --hover-color: #0056b3; /* Darker blue for hover */
-    --border-color: #dcdcdc; /* Subtle gray for borders */
-    --background-color: #ffffff; /* White background */
-    --text-color: #222222; /* Dark text color for readability */
-    --secondary-text-color: #6c757d; /* Muted text for subtleties */
-    --avatar-color: #ffcc00; /* Gold for user avatar */
+    --primary-color: #007bff; 
+    --hover-color: #0056b3; 
+    --border-color: #dcdcdc; 
+    --background-color: #ffffff; 
+    --text-color: #222222; 
+    --secondary-text-color: #6c757d; 
+    --avatar-color: #ffcc00; 
     --font-family: "Inter", sans-serif;
 }
 
@@ -33,7 +33,7 @@ body {
 }
 
 .navbar-logo img {
-    width: 70%; /* Refined logo size */
+    width: 70%; 
 }
 
 .navbar-greeting {
@@ -87,7 +87,7 @@ body {
 .create-button:hover {
     background-color: var(--hover-color);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px); /* Slight lift effect */
+    transform: translateY(-1px);
 }
 
 .search-bar-container {
@@ -106,7 +106,7 @@ body {
     color: var(--text-color);
     background-color: #f9f9f9;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    padding-left: 2.5rem; /* Space for search icon */
+    padding-left: 2.5rem; 
   }
   
   .search-bar:focus {
@@ -158,13 +158,13 @@ body {
     }
 
     .search-bar {
-        width: 100%; /* Full-width search bar */
+        width: 100%; 
     }
 }
 
 @media screen and (max-width: 480px) {
     .navbar-logo img {
-        width: 100px; /* Smaller logo for very small screens */
+        width: 100px; 
     }
 
     .create-button {

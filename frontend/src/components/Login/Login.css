@@ -123,10 +123,6 @@ h6 {
   margin-inline: auto;
 }
 
-.row{
-  display: block;
-}
-
 .visually-hidden {
   position: absolute;
   position: absolute !important;

@@ -43,8 +43,8 @@
 }
 
 .menu-item:hover {
-  background-color: hsl(222, 71%, 97%); /* Light background on hover */
-  color: hsla(226, 78%, 48%, 1); /* Blue text and icon on hover */
+  background-color: hsl(222, 71%, 97%); 
+  color: hsla(226, 78%, 48%, 1);
 }
 
 /* Active Item */
