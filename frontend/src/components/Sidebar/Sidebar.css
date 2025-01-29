@@ -1,21 +1,158 @@
-/* Sidebar Container */
-.sidebar {
-  width: 250px;
-  height: 100vh;
-  background-color:hsla(240, 19%, 94%, 1) ;
-  color: hsla(237, 16%, 27%, 1);
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+:root {
+  --clr-primary-500:hsla(226, 78%, 48%, 1);
+  --clr-secondary-500:hsla(237, 16%, 27%, 1);
+
+  --clr-netural-500:hsla(0, 0%, 100%, 1);
+  --clr-sc-netural-500:hsla(0, 0%, 70%, 1);
+
+  --ff-primary: 'Manrope', sans-serif;
+  --ff-secondary: "DM Sans", serif;
+
+  --ff-body: var(--ff-secondary);
+  --ff-heading: var(--ff-primary);
+
+  --grey-500:var(--clr-secondary-500);
+  --blue-500:var(--clr-primary-500);
+  --lblue-500:hsl(224, 92%, 90%);
+  --second-white:hsla(240, 20%, 97%, 1);
+  
+  --fw-regular: 400;
+  --fw-bold: 900;
+
+  --fs-300: 0.875rem;
+  --fs-500: 1rem;
+  --fs-550: 1.25rem;
+  --fs-600: 1.5rem;
+  --fs-700: 2.1875rem;
+
+  --fs-body: var(--fs-500);
+  --fs-nav: var(--fs-600);
+  --fs-button: var(--fs-300);
+  --fs-heading: var(--fs-700);
+
+  --size-100: 0.25rem;
+  --size-200: 0.5rem;
+  --size-250:0.625rem;
+  --size-300: 0.75rem;
+  --size-400: 1rem;
+  --size-450:1.25rem;
+  --size-500: 1.5rem;
+  --size-600: 2rem;
+  --size-700: 3rem;
+  --size-800: 4rem;
+  --size-900: 5rem;
 }
 
-/* Sidebar Title */
-.sidebar-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  text-align: center;
+@media (min-width: 50em) {
+  :root {
+    --fs-500: 1.5rem;
+    --fs-600: 1.8rem;
+    --fs-700: 2.5rem;
+  }
+}
+
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  /* 3. Add accessible line-height */
+  line-height: 1.5;
+  /* 4. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+
+  font-family: var(--ff-primary);
+}
+
+/* 5. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+  font-weight:var(--fw-bold);
+}
+
+/*
+    9. Create a root stacking context
+  */
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.container {
+  --max-width: 1110px;
+  --padding: 1rem;
+
+  width: min(var(--max-width), 100% - (var(--padding) * 2));
+  margin-inline: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* General Css */
+.sidebar {
+  width: 17%;
+  height: 100vh;
+  background-color:var(--second-white);
+  color: var(--grey-500);
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem ;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Menu List */
@@ -25,7 +162,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: var(--size-500);
 }
 
 /* Menu Item */
@@ -33,34 +170,34 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color:hsla(237, 16%, 27%, 1);
-  gap: 10px;
-  font-size: 18px;
-  padding: 10px;
-  border-radius: 8px;
+  color:var(--grey-500);
+  gap: var(--size-250);
+  font-size: var(--fs-550);
+  padding: var(--size-250);
+  border-radius: var(--size-200);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .menu-item:hover {
-  background-color: hsl(222, 71%, 97%); 
-  color: hsla(226, 78%, 48%, 1);
+  background-color: var(--lblue-500); 
+  color: var(--blue-500);
 }
 
 /* Active Item */
 .menu-item.active {
-  background-color: hsl(224, 92%, 90%); 
-  color: hsla(226, 78%, 48%, 1); 
+  background-color: var(--lblue-500); 
+  color: var(--blue-500); 
 }
 
 .icon {
-  font-size: 20px;
+  font-size: var(--size-450);
 }
 
 .icon.active{
- color: hsla(226, 78%, 48%, 1);
+ color: var(--blue-500);
 }
 
 .menu-text {
-  font-size: 16px;
+  font-size: var(--size-400);
 }
