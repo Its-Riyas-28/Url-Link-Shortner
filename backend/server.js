@@ -19,15 +19,19 @@ app.use(
     credentials: true, 
   })
 );
-app.use(express.json());
+app.use(express.json()); // Enable JSON parsing
+app.get("/api/links", (req, res) => {
+    res.json([{ id: 1, name: "Example Link" }]); // Must return JSON
+});
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", linkRoutes);
 
 app.use(errorMiddleware);
 
 mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err.message));
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

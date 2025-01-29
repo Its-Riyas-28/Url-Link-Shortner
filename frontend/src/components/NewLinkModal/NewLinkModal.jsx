@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "../../api/axiosInstance";
 import "./NewLinkModal.css";
 
-const NewLinkModal = ({ onClose, setLinks }) => {
+const NewLinkModal = ({ onClose, onLinkCreated }) => {
   const [url, setUrl] = useState("");
   const [remarks, setRemarks] = useState("");
   const [isExpirationEnabled, setIsExpirationEnabled] = useState(false);
@@ -33,10 +33,8 @@ const NewLinkModal = ({ onClose, setLinks }) => {
       if (response.data.success && response.data.data.shortUrl) {
         const newLink = response.data.data;
 
-        // ✅ Update parent state to refresh the table
-        setLinks((prevLinks) => [newLink, ...prevLinks]);
+        onLinkCreated(newLink); // ✅ Now correctly calls the function from App.js
 
-        // ✅ Close modal and clear form
         clearForm();
         onClose();
       } else {

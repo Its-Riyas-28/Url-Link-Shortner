@@ -14,25 +14,29 @@ import NewLinkModal from "./components/NewLinkModal/NewLinkModal";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [links, setLinks] = useState([]); 
-
+  const [links, setLinks] = useState([]);
 
   useEffect(() => {
-    const fetchLinks = async () => {
-      try {
-        const response = await fetch("/api/links");
-        const data = await response.json();
-        setLinks(data);
-      } catch (error) {
-        console.error("Failed to fetch links:", error);
-      }
-    };
-
-    fetchLinks();
+    fetch("https://url-link-shortner-backend.onrender.com/api/links") // Ensure this is the correct backend URL
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error("Received non-JSON response");
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Fetched Data:", data);
+        setLinks(data); // Update the state
+      })
+      .catch(error => console.error("Error fetching links:", error));
   }, []);
 
   const onLinkCreated = (newLink) => {
-    setLinks((prevLinks) => [newLink, ...prevLinks]); 
+    setLinks(prevLinks => (Array.isArray(prevLinks) ? [...prevLinks, newLink] : [newLink]));
   };
 
   const openModal = () => setIsModalOpen(true);
@@ -46,7 +50,6 @@ function App() {
           <Route path="/" element={<Register />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-
           <Route
             path="/dashboard"
             element={
@@ -69,7 +72,7 @@ function App() {
                 <div style={{ display: "flex" }}>
                   <Sidebar />
                   <div style={{ flex: 1, padding: "20px" }}>
-                    <Links links={links} /> 
+                    <Links links={links} />
                   </div>
                 </div>
               </>
