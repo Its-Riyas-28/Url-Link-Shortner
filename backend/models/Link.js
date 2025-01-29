@@ -1,63 +1,88 @@
-const express = require("express");
-const router = express.Router();
-const Link = require("../models/Link"); // Import the Link model
+import React, { useEffect, useState } from "react";
+import axios from "../../api/axiosInstance";
+import "./Links.css";
+import NewLinkModal from "../NewLinkModal/NewLinkModal"; // ✅ Ensure this is imported
 
-// Fetch all links
-router.get("/links", async (req, res) => {
-  try {
-    const links = await Link.find().sort({ createdAt: -1 }); // Fetch all links, sorted by creation date
-    res.status(200).json({ success: true, links });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
+const Links = () => {
+  const [links, setLinks] = useState([]);
 
-// Create a new link
-router.post("/links", async (req, res) => {
-  try {
-    const { originalUrl, remarks, expirationDate } = req.body;
-    if (!originalUrl || !remarks) {
-      return res.status(400).json({ success: false, message: "Invalid data" });
+  useEffect(() => {
+    const fetchLinks = async () => {
+      try {
+        const response = await axios.get("/links");  // ✅ Fixed API path
+        console.log("Raw response:", response);  // ✅ Debugging
+        console.log("Response data:", response.data);  // ✅ Debugging
+        if (response.data.success) {
+          setLinks(response.data.links || []);
+        }
+      } catch (error) {
+        console.error("Error fetching links:", error.response?.data || error.message);
+      }
+    };
+
+    fetchLinks();
+  }, []);
+
+  const handleCopy = (shortUrl) => {
+    navigator.clipboard.writeText(shortUrl);
+    alert("Short URL copied!");
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this link?")) {
+      try {
+        await axios.delete(`/links/${id}`);
+        setLinks(links.filter((link) => link._id !== id));
+      } catch (error) {
+        console.error("Error deleting link:", error.response?.data || error.message);
+      }
     }
+  };
 
-    // Create a new link in the database
-    const newLink = await Link.create({
-      originalUrl,
-      shortUrl: generateShortUrl(originalUrl), // Replace with a function to generate a short URL
-      remarks,
-      expirationDate,
-    });
+  return (
+    <div className="links-container">
+      <h2>Your Links</h2>
 
-    res.status(201).json({ success: true, data: newLink });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
+      {/* ✅ Include the NewLinkModal component */}
+      <NewLinkModal setLinks={setLinks} />
 
-// Delete a link
-router.delete("/links/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const deletedLink = await Link.findByIdAndDelete(id);
-    if (!deletedLink) {
-      return res.status(404).json({ success: false, message: "Link not found" });
-    }
-
-    res.status(200).json({ success: true, message: "Link deleted successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
-
-// Helper function to generate a short URL
-const generateShortUrl = (originalUrl) => {
-  const baseUrl = "http://short.ly/";
-  const uniqueId = Math.random().toString(36).substr(2, 6); // Generate a random 6-character string
-  return `${baseUrl}${uniqueId}`;
+      <table className="links-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Original Link</th>
+            <th>Short Link</th>
+            <th>Remarks</th>
+            <th>Clicks</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {links.map((link) => (
+            <tr key={link._id}>
+              <td>{new Date(link.createdAt).toLocaleString()}</td>
+              <td>{link.originalUrl}</td>
+              <td>
+                <a href={link.shortUrl || link.originalUrl} target="_blank" rel="noopener noreferrer">
+                  {link.shortUrl || "No Short URL"}
+                </a>
+                <button onClick={() => handleCopy(link.shortUrl || link.originalUrl)}>📋</button>
+              </td>
+              <td>{link.remarks}</td>
+              <td>{link.clicks}</td>
+              <td className={link.status === "Active" ? "status-active" : "status-inactive"}>
+                {link.status}
+              </td>
+              <td>
+                <button onClick={() => handleDelete(link._id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
-module.exports = router;
+export default Links;

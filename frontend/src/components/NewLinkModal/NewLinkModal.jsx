@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "../../api/axiosInstance";
 import "./NewLinkModal.css";
 
-const NewLinkModal = ({ onClose }) => {
+const NewLinkModal = ({ onClose, setLinks }) => {
   const [url, setUrl] = useState("");
   const [remarks, setRemarks] = useState("");
   const [isExpirationEnabled, setIsExpirationEnabled] = useState(false);
@@ -29,10 +29,19 @@ const NewLinkModal = ({ onClose }) => {
       };
 
       const response = await axios.post("/links", payload);
-      alert("Link created successfully!");
-      console.log("Response:", response.data);
-      clearForm();
-      onClose();
+
+      if (response.data.success && response.data.data.shortUrl) {
+        const newLink = response.data.data;
+
+        // ✅ Update parent state to refresh the table
+        setLinks((prevLinks) => [newLink, ...prevLinks]);
+
+        // ✅ Close modal and clear form
+        clearForm();
+        onClose();
+      } else {
+        alert("Failed to retrieve shortened link.");
+      }
     } catch (error) {
       console.error("Error creating link:", error.response?.data || error.message);
       alert("Failed to create link. Please try again.");
