@@ -1,0 +1,51 @@
+.links-table-container {
+    padding: 20px;
+  }
+  
+  .links-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .links-table th, .links-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .links-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .copy-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  
+  .status-active {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .status-inactive {
+    color: orange;
+    font-weight: bold;
+  }
+  
+  .action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+  
+  .action-button.edit {
+    color: blue;
+  }
+  
+  .action-button.delete {
+    color: red;
+  }
+  
