@@ -33,7 +33,7 @@ const NewLinkModal = ({ onClose, onLinkCreated }) => {
       if (response.data.success && response.data.data.shortUrl) {
         const newLink = response.data.data;
 
-        onLinkCreated(newLink); // ✅ Now correctly calls the function from App.js
+        onLinkCreated(newLink); 
 
         clearForm();
         onClose();

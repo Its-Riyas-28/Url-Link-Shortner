@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import axios from "axios";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -16,31 +17,37 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [links, setLinks] = useState([]);
 
-  useEffect(() => {
-    fetch("https://url-link-shortner-backend.onrender.com/api/links") // Ensure this is the correct backend URL
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-          throw new Error("Received non-JSON response");
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log("Fetched Data:", data);
-        setLinks(data); // Update the state
-      })
-      .catch(error => console.error("Error fetching links:", error));
-  }, []);
+  const [lastFetchedAt, setLastFetchedAt] = useState(null); 
+
+useEffect(() => {
+  const fetchLinks = async () => {
+    try {
+      const response = await axios.get("/links", {
+        params: { lastFetchedAt },
+      });
+
+      if (response.data.success && response.data.links.length > 0) {
+        setLinks((prevLinks) => [...response.data.links, ...prevLinks]);
+        setLastFetchedAt(new Date().toISOString()); 
+      }
+    } catch (error) {
+      console.error("Error fetching links:", error.message);
+    }
+  };
+
+  fetchLinks();
+  const interval = setInterval(fetchLinks, 3000);
+
+  return () => clearInterval(interval);
+}, [lastFetchedAt]);
+
 
   const onLinkCreated = (newLink) => {
     setLinks(prevLinks => {
       if (Array.isArray(prevLinks)) {
-        return [newLink, ...prevLinks]; // Add new link at the top
+        return [newLink, ...prevLinks]; 
       } else {
-        return [newLink]; // Ensure it's an array
+        return [newLink];
       }
     });
   };
@@ -116,7 +123,6 @@ function App() {
         </Routes>
       </Router>
 
-      <button onClick={openModal}>Create New Link</button>
       {isModalOpen && <NewLinkModal onClose={closeModal} onLinkCreated={onLinkCreated} />}
     </>
   );

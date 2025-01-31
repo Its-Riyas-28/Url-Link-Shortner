@@ -6,10 +6,12 @@ const linkRoutes = require("./routes/linkRoutes");
 const errorMiddleware = require("./middlewares/error"); 
 require("dotenv").config({ path:"../backend/.env" });
 
+
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
+// Middleware
 app.use(
   cors({
     origin: [
