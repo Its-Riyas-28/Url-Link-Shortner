@@ -5,22 +5,25 @@ const router = express.Router();
 
 const linkSchema = new mongoose.Schema({
   url: { type: String, required: true },
-  shortUrl: { type: String, unique: true }, 
+  shortUrl: { type: String, unique: true },
   remarks: { type: String, required: true },
   expirationDate: { type: Date, default: null },
+  createdAt: { type: Date, default: Date.now }, 
+  clicks: { type: Number, default: 0 },
+  status: { type: String, default: "Active" },
 });
 
 const Link = mongoose.model("Link", linkSchema);
 
 const generateShortUrl = () => {
-  const baseUrl = "http://url.st/"; 
+  const baseUrl = "http://url.st/";
   const uniqueId = Math.random().toString(36).substr(2, 6);
   return `${baseUrl}${uniqueId}`;
 };
 
 router.get("/links", async (req, res) => {
   try {
-    const links = await Link.find(); 
+    const links = await Link.find({}, { createdAt: 1, url: 1, shortUrl: 1, remarks: 1, clicks: 1, status: 1 }); // Ensure `createdAt` is included
     res.json({ success: true, links });
   } catch (error) {
     console.error("Error fetching links:", error.message);
@@ -37,7 +40,6 @@ router.post("/links", async (req, res) => {
     }
 
     const shortUrl = generateShortUrl(); 
-    
     const newLink = await Link.create({ url, shortUrl, remarks, expirationDate });
 
     res.status(201).json({ success: true, data: newLink });

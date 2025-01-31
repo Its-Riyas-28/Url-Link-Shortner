@@ -36,6 +36,23 @@ const Links = () => {
     }
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A"; 
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "Invalid Date"; 
+  
+    
+    const month = date.toLocaleString('en-US', { month: 'short' }); 
+    const day = date.getDate(); 
+    const year = date.getFullYear(); 
+    const hours = date.getHours(); 
+    const minutes = date.getMinutes(); 
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+    return `${month} ${day}, ${year} ${hours}:${formattedMinutes}`;
+  };
+  
+
   return (
     <div className="links-container">
       <h2>Your Links</h2>
@@ -53,8 +70,8 @@ const Links = () => {
         </thead>
         <tbody>
   {links.map((link) => (
-    <tr key={link._id}>
-      <td>{new Date(link.createdAt).toLocaleString()}</td>
+    <tr key={link._id}> 
+      <td>{formatDate(link.createdAt)}</td>
       <td>{link.originalUrl}</td>
       <td>
         <a href={link.shortUrl || link.originalUrl} target="_blank" rel="noopener noreferrer">
