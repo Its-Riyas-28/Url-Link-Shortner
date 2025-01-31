@@ -13,7 +13,7 @@
 
   --grey-500:var(--clr-secondary-500);
   --blue-500:var(--clr-primary-500);
-  --lblue-500:hsl(224, 92%, 90%);
+  --lblue-500:hsla(216, 70%, 97%, 1);
   --second-white:hsla(240, 20%, 97%, 1);
   
   --fw-regular: 400;
@@ -147,7 +147,7 @@ h6 {
 .sidebar {
   width: 17%;
   height: 100vh;
-  background-color:var(--second-white);
+  background-color:hsla(0, 0%, 100%, 1);
   color: var(--grey-500);
   display: flex;
   flex-direction: column;
@@ -182,12 +182,14 @@ h6 {
 .menu-item:hover {
   background-color: var(--lblue-500); 
   color: var(--blue-500);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Active Item */
 .menu-item.active {
   background-color: var(--lblue-500); 
   color: var(--blue-500); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .icon {

@@ -11,7 +11,6 @@ require("dotenv").config({ path:"../backend/.env" });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(
   cors({
     origin: [
@@ -21,9 +20,9 @@ app.use(
     credentials: true, 
   })
 );
-app.use(express.json()); // Enable JSON parsing
+app.use(express.json()); 
 app.get("/api/links", (req, res) => {
-    res.json([{ id: 1, name: "Example Link" }]); // Must return JSON
+    res.json([{ id: 1, name: "Example Link" }]); 
 });
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", linkRoutes);
