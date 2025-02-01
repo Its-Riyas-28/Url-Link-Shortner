@@ -28,7 +28,7 @@ app.use(cors({ origin:[
   // ✅ Register Routes
   app.use("/api/v1", userRoutes);
   app.use("/api/v1", linkRoutes);
-  app.use("/api/v1", analyticsRoutes); // ✅ Ensure IP tracking route is registered
+  app.use("/api/v1", analyticsRoutes); 
   
   // ✅ Centralized Error Handling
   app.use(errorMiddleware);
