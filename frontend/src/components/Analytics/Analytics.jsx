@@ -41,7 +41,9 @@ const Links = ({ lastUpdated }) => {
   const fetchVisitorData = async () => {
     try {
       const screenWidth = window.innerWidth;
-      const response = await axios.get(`https://url-link-shortner-backend.onrender.com/api/v1/logs/fetch-location?screenWidth=${screenWidth}`);
+      const response = await axios.get("https://url-link-shortner-backend.onrender.com/api/v1/logs/fetch-location")
+      .then(response => console.log("Fetched Data:", response.data))
+      .catch(error => console.error("API Error:", error));    
       setVisitorData({
         ip: response.data.ip || "Unavailable",
         device: response.data.deviceType || "Unknown",
