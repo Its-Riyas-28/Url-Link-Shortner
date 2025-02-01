@@ -37,13 +37,15 @@ const Links = ({ lastUpdated }) => {
 
   const fetchUserIp = async () => {
     try {
-      const response = await axios.get("https://api.ipify.org?format=json");
+      const response = await axios.get("https://url-link-shortner-backend.onrender.com/api/v1/get-ip"); // ✅ Use your backend
+      console.log("Fetched IP:", response.data);
       setUserIp(response.data.ip);
     } catch (error) {
       console.error("Error fetching IP address:", error);
       setUserIp("Unavailable");
     }
   };
+  
 
   const handleCopy = (shortUrl) => {
     navigator.clipboard.writeText(shortUrl);

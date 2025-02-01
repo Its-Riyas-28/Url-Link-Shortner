@@ -20,10 +20,13 @@ app.use(
     credentials: true, 
   })
 );
-app.use(express.json()); 
-app.get("/api/links", (req, res) => {
-    res.json([{ id: 1, name: "Example Link" }]); 
+app.use(express.json());
+
+app.get("/get-ip", (req, res) => {
+  const userIp = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  res.json({ ip: userIp });
 });
+
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", linkRoutes);
 
