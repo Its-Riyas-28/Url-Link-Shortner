@@ -28,7 +28,7 @@ const Links = () => {
 
   const handleCopy = (shortUrl) => {
     navigator.clipboard.writeText(shortUrl);
-    toast.success("Link copied");
+    toast.success("Link copied!");
   };
 
   const handleEdit = (id) => {
@@ -46,26 +46,6 @@ const Links = () => {
         console.error("Error deleting link:", error.response?.data || error.message);
       }
     }
-  };
-
-  const formatDate = (dateString) => {
-    if (!dateString) return "N/A";
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) return "Invalid Date";
-
-    const month = date.toLocaleString('en-US', { month: 'short' });
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-
-    return `${month} ${day}, ${year} ${hours}:${formattedMinutes}`;
-  };
-
-  const truncateUrl = (url) => {
-    if (!url) return "N/A";
-    return url.length > 20 ? url.substring(0, 20) + "..." : url;
   };
 
   return (
@@ -87,18 +67,18 @@ const Links = () => {
         <tbody>
           {links.map((link) => (
             <tr key={link._id}>
-              <td>{formatDate(link.createdAt)}</td>
+              <td>{new Date(link.createdAt).toLocaleString()}</td>
               <td className="original-link-cell">
                 <a href={link.url} target="_blank" rel="noopener noreferrer" title={link.url}>
-                  {truncateUrl(link.url)}
+                  {link.url}
                 </a>
               </td>
               <td>
-                <a href={link.shortUrl || link.url} target="_blank" rel="noopener noreferrer">
-                  {link.shortUrl || "No Short URL"}
+                <a href={link.shortUrl} target="_blank" rel="noopener noreferrer">
+                  {link.shortUrl}
                 </a>
                 <ol className="action-icons">
-                  <li onClick={() => handleCopy(link.shortUrl || link.url)} title="Copy">
+                  <li onClick={() => handleCopy(link.shortUrl)} title="Copy">
                     <IoCopyOutline />
                   </li>
                 </ol>
@@ -109,7 +89,7 @@ const Links = () => {
                 {link.status}
               </td>
               <td>
-                <ol className="action-icons">
+              <ol className="action-icons">
                   <li onClick={() => handleEdit(link._id)} title="Edit">
                     <MdEdit />
                   </li>
