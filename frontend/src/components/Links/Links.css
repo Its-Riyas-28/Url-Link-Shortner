@@ -119,19 +119,8 @@ td {
 .action-icons li {
   cursor: pointer;
   font-size: 1.25rem;
-  color: #007bff;
+  color: hsla(237, 16%, 27%, 1);
   padding: 5px;
   transition: color 0.2s ease-in-out;
 }
 
-.action-icons li:hover {
-  color: #0056b3;
-}
-
-.action-icons li:nth-child(2) {
-  color: red;
-}
-
-.action-icons li:nth-child(2):hover {
-  color: darkred;
-}
