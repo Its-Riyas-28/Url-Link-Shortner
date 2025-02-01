@@ -10,23 +10,26 @@ const Links = ({ lastUpdated }) => {
   const [links, setLinks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [userIp, setUserIp] = useState("");
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [visitorData, setVisitorData] = useState({ ip: "Loading...", device: "Unknown" });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchLinks(currentPage);
-    fetchUserIp();
   }, [currentPage, lastUpdated]);
 
+  useEffect(() => {
+    fetchVisitorData();
+  }, []);
+
   const fetchLinks = async (page) => {
-    setLoading(true); // Show loading state
+    setLoading(true);
     try {
       const response = await axios.get(`/links?page=${page}`);
       if (response.data.success) {
         setLinks(response.data.links || []);
         setTotalPages(response.data.totalPages || 1);
       } else {
-        setLinks([]); // Handle empty response safely
+        setLinks([]);
       }
     } catch (error) {
       toast.error("Error fetching links! ❌");
@@ -35,59 +38,62 @@ const Links = ({ lastUpdated }) => {
     setLoading(false);
   };
 
-  const fetchUserIp = async () => {
+  const fetchVisitorData = async () => {
     try {
-      const response = await axios.get("https://url-link-shortner-backend.onrender.com/api/v1/get-ip"); // ✅ Use your backend
-      console.log("Fetched IP:", response.data);
-      setUserIp(response.data.ip);
+      const screenWidth = window.innerWidth;
+      const response = await axios.get(`https://url-link-shortner-backend.onrender.com/api/v1/logs/fetch-location?screenWidth=${screenWidth}`);
+      setVisitorData({
+        ip: response.data.ip || "Unavailable",
+        device: response.data.deviceType || "Unknown",
+        os: response.data.os || "Unknown",
+        browser: response.data.browser || "Unknown",
+      });
     } catch (error) {
-      console.error("Error fetching IP address:", error);
-      setUserIp("Unavailable");
+      console.error("Error fetching visitor data:", error);
+      setVisitorData({
+        ip: "Unavailable", 
+        device: "Unknown", 
+        os: "Unknown", 
+        browser: "Unknown"
+      });
     }
   };
-  
 
   const handleCopy = (shortUrl) => {
     navigator.clipboard.writeText(shortUrl);
     toast.success("Link copied!");
   };
 
-  // ✅ Fix: Define generatePageNumbers to avoid errors
   const generatePageNumbers = () => {
-    const pageNumbers = [];
+    const pages = [];
     if (totalPages <= 5) {
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
-      pageNumbers.push(1, 2);
-      if (currentPage > 4) pageNumbers.push("...");
+      pages.push(1, 2);
+      if (currentPage > 4) pages.push("...");
       let start = Math.max(3, currentPage - 1);
       let end = Math.min(totalPages - 2, currentPage + 1);
-      for (let i = start; i <= end; i++) {
-        pageNumbers.push(i);
-      }
-      if (currentPage < totalPages - 3) pageNumbers.push("...");
-      pageNumbers.push(totalPages - 1, totalPages);
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (currentPage < totalPages - 3) pages.push("...");
+      pages.push(totalPages - 1, totalPages);
     }
-    return pageNumbers;
+    return pages;
   };
 
   return (
     <div className="links-container">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
-      
-      {loading ? ( // ✅ Show loading message instead of a blank screen
+      {loading ? (
         <p>Loading links...</p>
       ) : (
         <>
-          {links.length === 0 ? ( // ✅ Show message when no links are available
+          {links.length === 0 ? (
             <p>No links found.</p>
           ) : (
             <table className="links-table">
               <thead>
                 <tr>
-                  <th>Date</th>
+                  <th>Timestamp</th>
                   <th>Original Link</th>
                   <th>Short Link</th>
                   <th>IP Address</th>
@@ -113,8 +119,8 @@ const Links = ({ lastUpdated }) => {
                         </li>
                       </ol>
                     </td>
-                    <td>{userIp || "Loading..."}</td>
-                    <td>{link.userDevice || "Unknown"}</td>
+                    <td>{visitorData.ip}</td>
+                    <td>{visitorData.device}</td>
                   </tr>
                 ))}
               </tbody>
@@ -132,7 +138,6 @@ const Links = ({ lastUpdated }) => {
   );
 };
 
-// ✅ Fix: Pass generatePageNumbers correctly
 const Pagination = ({ currentPage, totalPages, setCurrentPage, generatePageNumbers }) => {
   const pageNumbers = generatePageNumbers();
 

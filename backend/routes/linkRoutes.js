@@ -70,7 +70,7 @@ router.post("/links", async (req, res) => {
 // Route to handle short URL redirection
 router.get("/:shortUrl", async (req, res) => {
   try {
-    const link = await Link.findOne({ shortUrl: `https://url-link-shortner-backend.onrender.com/api/v1/${req.params.shortUrl}` });
+    const link = await Link.findOne({ shortUrl: `'https://url-link-shortner-backend.onrender.com/api/v1/${req.params.shortUrl}` });
     
     if (!link) {
       return res.status(404).json({ message: "Short URL not found" });
