@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const userRoutes = require("./routes/auth");
 const linkRoutes = require("./routes/linkRoutes"); 
-const analyticsRoutes = require("./routes/analyticsRoutes"); 
-const ipRoutes = require("./routes/analyticsRoutes"); // ✅ Added IP tracking route
+const analyticsRoutes = require("./routes/analyticsRoutes");  // ✅ Added IP tracking route
 const errorMiddleware = require("./middlewares/error");
 
 require("dotenv").config({ path: "../backend/.env" });
