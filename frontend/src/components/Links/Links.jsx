@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axiosInstance";
 import { IoCopyOutline } from "react-icons/io5";
-import { MdEdit } from "react-icons/md";
+import { MdEdit, MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { ToastContainer, toast } from "react-toastify"; 
-import "react-toastify/dist/ReactToastify.css"; 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./Links.css";
 
 const Links = () => {
   const [links, setLinks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    const fetchLinks = async () => {
-      try {
-        const response = await axios.get("/links");
-        if (response.data.success) {
-          setLinks(response.data.links || []);
-        }
-      } catch (error) {
-        toast.error("Error fetching links! ❌");
-        console.error("Error fetching links:", error.response?.data || error.message);
-      }
-    };
+    fetchLinks(currentPage);
+  }, [currentPage]); // Fetch links when `currentPage` changes
 
-    fetchLinks();
-  }, []);
+  const fetchLinks = async (page) => {
+    try {
+      const response = await axios.get(`/links?page=${page}`);
+      if (response.data.success) {
+        setLinks(response.data.links || []);
+        setTotalPages(response.data.totalPages || 1);
+      }
+    } catch (error) {
+      toast.error("Error fetching links! ❌");
+      console.error("Error fetching links:", error.response?.data || error.message);
+    }
+  };
 
   const handleCopy = (shortUrl) => {
     navigator.clipboard.writeText(shortUrl);
@@ -39,7 +42,7 @@ const Links = () => {
     if (window.confirm("Are you sure you want to delete this link?")) {
       try {
         await axios.delete(`/links/${id}`);
-        setLinks(links.filter((link) => link._id !== id));
+        fetchLinks(currentPage); // Refresh links after deletion
         toast.success("Link deleted successfully! 🗑️");
       } catch (error) {
         toast.error("Error deleting link! ❌");
@@ -89,7 +92,7 @@ const Links = () => {
                 {link.status}
               </td>
               <td>
-              <ol className="action-icons">
+                <ol className="action-icons">
                   <li onClick={() => handleEdit(link._id)} title="Edit">
                     <MdEdit />
                   </li>
@@ -102,6 +105,72 @@ const Links = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Pagination Component */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
+    </div>
+  );
+};
+
+// Pagination Component
+const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
+  const maxPagesToShow = 5;
+  const pageNumbers = [];
+
+  if (totalPages <= maxPagesToShow) {
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+  } else {
+    pageNumbers.push(1);
+    if (currentPage > 3) pageNumbers.push("...");
+
+    let start = Math.max(2, currentPage - 1);
+    let end = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let i = start; i <= end; i++) {
+      pageNumbers.push(i);
+    }
+
+    if (currentPage < totalPages - 2) pageNumbers.push("...");
+    pageNumbers.push(totalPages);
+  }
+
+  return (
+    <div className="pagination">
+      <button
+        className={`page-btn ${currentPage === 1 ? "disabled" : ""}`}
+        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+        disabled={currentPage === 1}
+      >
+        <MdNavigateBefore />
+      </button>
+
+      {pageNumbers.map((page, index) =>
+        typeof page === "number" ? (
+          <button
+            key={index}
+            className={`page-btn ${currentPage === page ? "active" : ""}`}
+            onClick={() => setCurrentPage(page)}
+          >
+            {page}
+          </button>
+        ) : (
+          <span key={index} className="ellipsis">{page}</span>
+        )
+      )}
+
+      <button
+        className={`page-btn ${currentPage === totalPages ? "disabled" : ""}`}
+        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+        disabled={currentPage === totalPages}
+      >
+        <MdNavigateNext />
+      </button>
     </div>
   );
 };

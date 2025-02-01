@@ -21,16 +21,30 @@ const generateShortUrl = () => {
   return `${baseUrl}/${uniqueId}`;
 };
 
-// Route to fetch all links
 router.get("/links", async (req, res) => {
   try {
-    const links = await Link.find({}, { createdAt: 1, url: 1, shortUrl: 1, remarks: 1, clicks: 1, status: 1 });
-    res.json({ success: true, links });
+    const page = parseInt(req.query.page) || 1; // Default to page 1
+    const limit = 10; // Only 10 records per page
+    const skip = (page - 1) * limit; // Skip previous pages
+
+    const totalLinks = await Link.countDocuments(); // Count total links
+    const links = await Link.find()
+      .sort({ createdAt: -1 }) // Show newest links first
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      success: true,
+      links,
+      totalPages: Math.ceil(totalLinks / limit),
+      currentPage: page,
+    });
   } catch (error) {
     console.error("Error fetching links:", error.message);
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
 
 // Route to create a short link
 router.post("/links", async (req, res) => {
