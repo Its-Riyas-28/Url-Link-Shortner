@@ -4,9 +4,7 @@ import "./Dasboard.css";
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      <h2>
-        Good Morning, <span>Sujith</span>
-      </h2>
+      
       <div className="charts">
         {/* Total Clicks Card */}
         <div className="chart">
