@@ -50,13 +50,14 @@ router.get("/links", async (req, res) => {
 router.post("/links", async (req, res) => {
   try {
     const { url, remarks, expirationDate } = req.body;
+    const userIp = req.headers["x-forwarded-for"] || req.connection.remoteAddress; // Get user's IP
 
     if (!url || !remarks) {
       return res.status(400).json({ success: false, message: "URL and remarks are required." });
     }
 
     const shortUrl = generateShortUrl();
-    const newLink = await Link.create({ url, shortUrl, remarks, expirationDate });
+    const newLink = await Link.create({ url, shortUrl, remarks, expirationDate, userIp });
 
     res.status(201).json({ success: true, data: newLink });
   } catch (error) {
@@ -65,10 +66,12 @@ router.post("/links", async (req, res) => {
   }
 });
 
+
 // Route to handle short URL redirection
 router.get("/:shortUrl", async (req, res) => {
   try {
     const link = await Link.findOne({ shortUrl: `https://url-link-shortner-backend.onrender.com/api/v1/${req.params.shortUrl}` });
+    
     if (!link) {
       return res.status(404).json({ message: "Short URL not found" });
     }
